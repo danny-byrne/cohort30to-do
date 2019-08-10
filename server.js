@@ -5,15 +5,23 @@ const app = express();
 const bodyParser = require('body-parser');
 const dbController = require('./controllers.js');
 
+//body parser for handling body requests
 app.use(bodyParser.json());
+
+//server static elements like the .css file
 app.use(express.static(path.resolve(__dirname, './client')));
-//app.use(express.static(__dirname + '/public'));
+
+//server the html page 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, './index.html'))
 });
 
+//define middleware for handling post requests
+//request body is the JSON of ourInput
 app.post('/add', dbController.add, (req, res) => {
+  //response converted from json
     res.json(res.locals.id)
+    //returned from the fetch request, back to index.js
 })
 
 
